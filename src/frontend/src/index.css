@@ -1,0 +1,22 @@
+@import "tailwindcss";
+@import "leaflet/dist/leaflet.css";
+
+@theme {
+  --color-ink: #0a0f1c;
+  --color-surface: #111a2e;
+  --color-surface-2: #16223a;
+  --color-line: #243049;
+  --color-muted: #8896ad;
+  --color-text: #e8eef7;
+  --color-fatal: #ef4444;
+  --color-serious: #f59e0b;
+  --color-light: #3b82f6;
+  --color-brand: #22d3ee;
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+
+body { font-family: var(--font-body); background: var(--color-ink); color: var(--color-text); }
+
+.tnum { font-variant-numeric: tabular-nums; }

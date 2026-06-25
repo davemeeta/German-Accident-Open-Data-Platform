@@ -1,0 +1,17 @@
+services:
+  postgres:
+    image: postgis/postgis:16-3.4
+    container_name: unfallatlas-db
+    platform: linux/amd64
+    environment:
+      POSTGRES_DB: unfallatlas
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5433:5432"                # Using 5433 to avoid port conflicts
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
