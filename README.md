@@ -1,0 +1,257 @@
+# Unfallatlas Risk Lens
+
+**German Road Accident Open Data Platform** — integrates 2M+ accident records (2016–2024), regional statistics, and district boundary geometries into a single analytical platform with a REST API and interactive dashboard.
+
+Built for the module *Datenbanken und Web-Techniken* at BTU Cottbus-Senftenberg.
+
+![Python](https://img.shields.io/badge/Python-3.10+-blue)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.110+-green)
+![React](https://img.shields.io/badge/React-18+-61DAFB)
+![License](https://img.shields.io/badge/Data_License-dl--de/by--2--0-orange)
+
+---
+
+## Features
+
+- **2,098,019 accident records** from 9 annual Unfallatlas releases, harmonised via a column-variant resolution mechanism
+- **12-endpoint REST API** with OpenAPI/Swagger documentation, structured provenance in every response
+- **Interactive dashboard** with hotspot maps, choropleth visualisation, ranking charts, and trend analysis
+- **Multi-source queries** — e.g. accidents per 100,000 registered cars per district
+- **Fully reproducible** — one command rebuilds the entire database from raw source files
+- **15 automated quality checks** — coordinate validity, AGS integrity, referential integrity, duplicate detection
+
+## Screenshots
+ 
+### Dashboard Overview
+![Dashboard Overview](/Users/meetadave/unfallatlas-risk-lens/outputs/screenshot_overview.png)
+ 
+### Choropleth & District Rankings
+![Choropleth and Rankings](/Users/meetadave/unfallatlas-risk-lens/outputs/screenshot_dashboard.png)
+ 
+---
+
+## Architecture
+
+```
+┌─────────────────────────────────────────────────────┐
+│                    Raw Data Sources                  │
+│  Unfallatlas CSV × 9  │  GENESIS CSV  │  GeoJSON    │
+└──────────┬────────────┴───────┬───────┴──────┬──────┘
+           │         ETL Pipeline              │
+           │  (column-variant resolution,      │
+           │   AGS assembly, normalisation)    │
+           └──────────────┬────────────────────┘
+                          ▼
+               ┌──────────────────┐
+               │  SQLite Database │
+               │  (canonical schema, 6 tables) │
+               └─────────┬────────┘
+                          ▼
+               ┌──────────────────┐
+               │  FastAPI REST API │
+               │  (12 endpoints)   │
+               └─────────┬────────┘
+                          ▼
+               ┌──────────────────┐
+               │  React Dashboard  │
+               │  (Leaflet + Recharts) │
+               └──────────────────┘
+```
+
+## Quick Start
+
+### Option A: Docker Compose (recommended)
+
+```bash
+git clone https://github.com/[YOUR_USERNAME]/unfallatlas-risk-lens.git
+cd unfallatlas-risk-lens
+
+# Place your data files (see Data Setup below)
+
+docker-compose up --build
+```
+
+- API: http://localhost:8000
+- API docs: http://localhost:8000/docs
+- Dashboard: http://localhost:5173
+
+### Option B: Manual Setup
+
+**Prerequisites:** Python 3.10+, Node.js 18+, npm
+
+```bash
+# 1. Clone and setup
+git clone https://github.com/[YOUR_USERNAME]/unfallatlas-risk-lens.git
+cd unfallatlas-risk-lens
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+
+# 2. Install frontend dependencies
+cd src/frontend && npm install && cd ../..
+
+# 3. Place data files (see below), then build the database
+cd src
+python -m etl.run_import
+python -m etl.quality_checks    # optional: verify data integrity
+
+# 4. Start API (Terminal 1)
+uvicorn api.main:app --reload
+
+# 5. Start frontend (Terminal 2)
+cd src/frontend && npm run dev
+```
+
+## Data Setup
+
+Place the following files before running the import:
+
+| File | Location | Source |
+|------|----------|--------|
+| Unfallatlas CSVs (per year) | `data/raw/unfallatlas/{year}/` | [opengeodata.nrw.de](https://www.opengeodata.nrw.de/produkte/transport_verkehr/unfallatlas/) |
+| Registered cars CSV | `data/raw/regional-stats/registered_cars_2023_2024.csv` | [GENESIS table 46251](https://www.regionalstatistik.de/genesis/online) |
+| Per-10k accidents CSV | `data/raw/regional-stats/accident_per_10000_per_city.csv` | [Regionalstatistik](https://www.regionalstatistik.de/genesis/online) |
+| District boundaries | `data/raw/boundaries/districts.geojson` | [OpenDataSoft](https://public.opendatasoft.com/explore/dataset/georef-germany-kreis/export/) |
+
+**Quick download for district boundaries:**
+```bash
+curl -o data/raw/boundaries/districts.geojson \
+  "https://public.opendatasoft.com/api/explore/v2.1/catalog/datasets/georef-germany-kreis/exports/geojson"
+```
+
+## API Endpoints (12)
+
+| # | Endpoint | Category | Description |
+|---|----------|----------|-------------|
+| 1 | `GET /` | Meta | Service index with version and endpoint list |
+| 2 | `GET /health` | Meta | Liveness check |
+| 3 | `GET /aggregates/accidents` | Count | Total accident count for any filter combination |
+| 4 | `GET /aggregates/accidents/by-region` | Ranking | Counts grouped by state/district/municipality |
+| 5 | `GET /aggregates/hotspots` | Spatial | Severity-ranked crash clusters on a grid |
+| 6 | `GET /accidents` | List | Paginated individual accident rows |
+| 7 | `GET /accidents/near` | Spatial | Accidents within radius of a lat/lon point |
+| 8 | `GET /regions/choropleth` | GeoJSON | District polygons for choropleth maps |
+| 9 | `GET /stats/first-year` | Temporal | Earliest available data year |
+| 10 | `GET /stats/trend` | Trend | Accident counts per year as a time series |
+| 11 | `GET /metadata/sources` | Provenance | Data sources and their licences |
+| 12 | `GET /import-runs` | Provenance | Every import run with timestamps and row counts |
+
+Full API documentation with parameters and examples: http://127.0.0.1:8000/docs
+
+### Example Queries
+
+```bash
+# How many fatal accidents in Sachsen in 2023?
+curl "http://localhost:8000/aggregates/accidents?state=SN&year=2023&category=1"
+
+# Top 5 districts by accident count in Bayern, 2023
+curl "http://localhost:8000/aggregates/accidents/by-region?state=BY&year=2023&level=district&limit=5"
+
+# Hotspots in Berlin, 2023, all severities
+curl "http://localhost:8000/aggregates/hotspots?state=BE&year=2023&limit=10"
+
+# Trend for Nordrhein-Westfalen, fatal only
+curl "http://localhost:8000/stats/trend?state=NW&category=1"
+
+# Choropleth GeoJSON for Sachsen, serious injuries, 2023
+curl "http://localhost:8000/regions/choropleth?metric=count&year=2023&state=SN&category=2"
+```
+
+## Database Schema
+
+Six tables centred on the `accidents` table, joined via the official AGS region key:
+
+- **accidents** — 2M+ rows: severity, time, participant flags, coordinates, municipality AGS
+- **regions** — hierarchical: country → state → district → municipality, with geometry column
+- **indicators** / **indicator_values** — extensible time-varying stats (cars, per-10k rates)
+- **data_sources** / **import_runs** — full provenance audit trail
+
+## Dashboard
+
+The React dashboard provides five analytical panels driven by a shared filter bar:
+
+- **Headline** — total count with fatal/serious/light severity bars
+- **Hotspot Map** — Leaflet map with severity-coloured crash clusters
+- **Choropleth Map** — district polygons shaded by accident count
+- **Top Districts** — horizontal bar chart ranking
+- **Trend Line** — year-over-year accident count with selected year highlighted
+
+## Data Quality
+
+15 automated checks run via `python3 -m etl.quality_checks`:
+
+```
+[PASS] accidents table populated     (2,098,019 rows)
+[PASS] years within 2016–2026        (2016–2024)
+[PASS] coordinates inside Germany    (0 out of range)
+[PASS] coordinates present           (0 missing)
+[PASS] category in {1,2,3}
+[PASS] month in 1–12
+[PASS] hour in 0–23
+[PASS] participant flags are 0/1     (0 bad)
+[PASS] municipality_ags is 8 digits
+[PASS] state prefix is 01–16        (0 bad)
+[PASS] every accident linked to a region
+[PASS] districts have a parent state
+[WARN] no duplicate source ids       (212,692 duplicated)
+[PASS] road_condition populated      (2,098,019 rows)
+[PASS] districts have geometry       (400/516 covered)
+─────────────────────────────────────────────────────
+0 FAIL · 1 WARN · 14 PASS
+```
+
+The single WARN reflects overlapping annual releases in the source data, not an import error.
+
+## Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| ETL | Python, SQLite |
+| API | FastAPI, Uvicorn |
+| Frontend | React 18, Vite, TypeScript, Tailwind CSS v4 |
+| Maps | Leaflet |
+| Charts | Recharts |
+| Data licence | Datenlizenz Deutschland – Namensnennung 2.0 |
+
+## Project Structure
+
+```
+unfallatlas-risk-lens/
+├── data/
+│   ├── raw/                      # Source files (not committed)
+│   │   ├── unfallatlas/          # Accident CSVs by year
+│   │   ├── regional-stats/       # Car counts, per-10k rates
+│   │   └── boundaries/           # districts.geojson
+│   └── processed/
+│       └── accidents.db          # Built database (not committed)
+├── src/
+│   ├── etl/                      # ETL pipeline
+│   │   ├── config.py             # Paths, column maps, state codes
+│   │   ├── run_import.py         # Main import orchestrator
+│   │   ├── load_accidents.py     # Unfallatlas loader (column-variant)
+│   │   ├── load_indicators.py    # Cars + per-10k loader
+│   │   ├── load_geometries.py    # GeoJSON boundary loader
+│   │   ├── load_regions.py       # State hierarchy seeder
+│   │   └── quality_checks.py     # 15 automated checks
+│   ├── api/
+│   │   └── main.py               # FastAPI application (12 endpoints)
+│   ├── db/
+│   │   └── schema.sql            # Database schema
+│   └── frontend/
+│       ├── src/
+│       │   ├── App.tsx
+│       │   ├── lib/              # API client, types, formatting
+│       │   └── components/       # React components
+│       ├── package.json
+│       └── vite.config.ts
+├── Dockerfile
+├── docker-compose.yml
+├── requirements.txt
+└── README.md
+```
+
+## Licence
+
+The **source code** is provided for academic purposes as part of a university module submission.
+
+All **data** is sourced from official German open data portals under the [Datenlizenz Deutschland – Namensnennung 2.0](https://www.govdata.de/dl-de/by-2-0) (dl-de/by-2-0), which permits free use and redistribution with attribution.

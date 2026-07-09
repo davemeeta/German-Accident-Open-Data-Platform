@@ -1,0 +1,74 @@
+# ── Virtual environments ──────────────────────────────────
+myenv/
+.venv/
+venv/
+env/
+
+# ── Python cache ─────────────────────────────────────────
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+**/__pycache__/
+**/*.pyc
+
+# ── Database ─────────────────────────────────────────────
+data/processed/
+*.db
+
+# ── Raw accident data (large) ────────────────────────────
+data/raw/unfallatlas/
+
+# ── macOS junk ───────────────────────────────────────────
+.DS_Store
+**/.DS_Store
+data/.DS_Store
+data/raw/.DS_Store
+src/.DS_Store
+outputs/.DS_Store
+
+# ── VS Code ──────────────────────────────────────────────
+.vscode/
+
+# ── Environment files ────────────────────────────────────
+.env
+.env.*
+
+# ── Notebooks ────────────────────────────────────────────
+notebooks/
+
+# ── Outputs folder ───────────────────────────────────────
+outputs/
+
+# ── Setup scripts ────────────────────────────────────────
+src/setup_frontend_verbose.sh
+src/frontend/finish_frontend.sh
+
+# ── Frontend extras not in tree ──────────────────────────
+src/frontend/.gitignore
+src/frontend/README.md
+src/frontend/eslint.config.js
+src/frontend/index.html
+src/frontend/package-lock.json
+src/frontend/public/
+src/frontend/tsconfig.app.json
+src/frontend/tsconfig.json
+src/frontend/tsconfig.node.json
+src/frontend/src/index.css
+src/frontend/src/main.tsx
+src/frontend/src/components/LeafletMap.tsx
+src/frontend/src/components/Panel.tsx
+src/frontend/src/components/ProvenanceFooter.tsx
+
+# ── ETL extras not in tree ───────────────────────────────
+src/etl/__init__.py
+src/api/__init__.py
+
+# ── Frontend build ───────────────────────────────────────
+src/frontend/node_modules/
+src/frontend/dist/
+
+# ── Misc ─────────────────────────────────────────────────
+*.log
+*.tmp
+code.txt
