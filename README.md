@@ -34,23 +34,23 @@ Built for the module *Datenbanken und Web-Techniken*.
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                        Raw Data Sources                      │
+│                        Raw Data Sources                     │
 ├─────────────────┬───────────────────┬───────────────────────┤
 │  Unfallatlas    │   GENESIS 46251   │   Regionalstatistik   │
 │  9 CSV files    │   Registered cars │   Per-10k rate        │
 │  2016 – 2024    │   2020 – 2024     │   District GeoJSON    │
-└────────┬────────┴─────────┬─────────┴──────────┬────────────┘
+└────────┬────────┴─────────┬─────────┴───────────┬───────────┘
          │                  │                     │
          └──────────────────▼─────────────────────┘
-                    ┌───────────────┐
-                    │  ETL Pipeline │
-                    ├───────────────┤
+                    ┌──────────────────────────┐
+                    │  ETL Pipeline            │
+                    ├──────────────────────────┤
                     │ · Auto-discover files    │
                     │ · Column-variant resolve │
                     │ · AGS key assembly       │
                     │ · Coordinate normalise   │
                     │ · Provenance recording   │
-                    └───────┬───────┘
+                    └───────┬──────────────────┘
                             │
                             ▼
                     ┌───────────────┐
@@ -143,24 +143,29 @@ curl -o data/raw/boundaries/districts.geojson \
   "https://public.opendatasoft.com/api/explore/v2.1/catalog/datasets/georef-germany-kreis/exports/geojson"
 ```
 
-## API Endpoints (12)
-
+## API Endpoints
+ 
 | # | Endpoint | Category | Description |
-|---|----------|----------|-------------|
-| 1 | `GET /` | Meta | Service index with version and endpoint list |
+|---|---|---|---|
+| 1 | `GET /` | Meta | Service index |
 | 2 | `GET /health` | Meta | Liveness check |
-| 3 | `GET /aggregates/accidents` | Count | Total accident count for any filter combination |
-| 4 | `GET /aggregates/accidents/by-region` | Ranking | Counts grouped by state/district/municipality |
-| 5 | `GET /aggregates/hotspots` | Spatial | Severity-ranked crash clusters on a grid |
+| 3 | `GET /regions` | Regions | List regions by level or name |
+| 4 | `GET /regions/choropleth` | GeoJSON | District polygons for choropleth maps |
+| 5 | `GET /regions/{ags}` | Regions | Single region with indicator values |
 | 6 | `GET /accidents` | List | Paginated individual accident rows |
-| 7 | `GET /accidents/near` | Spatial | Accidents within radius of a lat/lon point |
-| 8 | `GET /regions/choropleth` | GeoJSON | District polygons for choropleth maps |
-| 9 | `GET /stats/first-year` | Temporal | Earliest available data year |
-| 10 | `GET /stats/trend` | Trend | Accident counts per year as a time series |
-| 11 | `GET /metadata/sources` | Provenance | Data sources and their licences |
-| 12 | `GET /import-runs` | Provenance | Every import run with timestamps and row counts |
-
-Full API documentation with parameters and examples: http://127.0.0.1:8000/docs
+| 7 | `GET /accidents/near` | Spatial | Accidents within radius of a point |
+| 8 | `GET /aggregates/accidents` | Count | Total accident count for any filter |
+| 9 | `GET /aggregates/accidents/by-region` | Ranking | Counts grouped by state/district |
+| 10 | `GET /aggregates/rate` | Multi-source | Accidents per 100k cars/inhabitants |
+| 11 | `GET /aggregates/hotspots` | Spatial | Severity-ranked crash clusters |
+| 12 | `GET /stats/first-year` | Temporal | Earliest data year per state |
+| 13 | `GET /stats/trend` | Trend | Accident counts per year |
+| 14 | `GET /metadata/sources` | Provenance | Data sources and licences |
+| 15 | `GET /import-runs` | Provenance | Import audit trail |
+ 
+Full interactive documentation: `http://127.0.0.1:8000/docs`
+ 
+---
 
 ### Example Queries
 
