@@ -2,7 +2,7 @@
 
 **German Road Accident Open Data Platform** — integrates 2M+ accident records (2016–2024), regional statistics, and district boundary geometries into a single analytical platform with a REST API and interactive dashboard.
 
-Built for the module *Datenbanken und Web-Techniken* at BTU Cottbus-Senftenberg.
+Built for the module *Datenbanken und Web-Techniken*.
 
 ![Python](https://img.shields.io/badge/Python-3.10+-blue)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.110+-green)
@@ -48,13 +48,13 @@ Built for the module *Datenbanken und Web-Techniken* at BTU Cottbus-Senftenberg.
                └─────────┬────────┘
                           ▼
                ┌──────────────────┐
-               │  FastAPI REST API │
-               │  (12 endpoints)   │
+               │  FastAPI REST API│
+               │  (12 endpoints)  │
                └─────────┬────────┘
                           ▼
                ┌──────────────────┐
                │  React Dashboard  │
-               │  (Leaflet + Recharts) │
+               │(Leaflet + Recharts) │
                └──────────────────┘
 ```
 
@@ -218,36 +218,52 @@ The single WARN reflects overlapping annual releases in the source data, not an 
 ```
 unfallatlas-risk-lens/
 ├── data/
-│   ├── raw/                      # Source files (not committed)
-│   │   ├── unfallatlas/          # Accident CSVs by year
-│   │   ├── regional-stats/       # Car counts, per-10k rates
-│   │   └── boundaries/           # districts.geojson
-│   └── processed/
-│       └── accidents.db          # Built database (not committed)
+│   └── raw/
+│       ├── aggregates/
+│       │   └── accidents_with_persons_per_month.csv
+│       ├── boundaries/
+│       │   └── districts.geojson
+│       └── regional-stats/
+│           ├── accident_per_10000_per_city.csv
+│           ├── registered_cars_2023.csv
+│           └── registered_cars_2024_2021.csv
 ├── src/
-│   ├── etl/                      # ETL pipeline
-│   │   ├── config.py             # Paths, column maps, state codes
-│   │   ├── run_import.py         # Main import orchestrator
-│   │   ├── load_accidents.py     # Unfallatlas loader (column-variant)
-│   │   ├── load_indicators.py    # Cars + per-10k loader
-│   │   ├── load_geometries.py    # GeoJSON boundary loader
-│   │   ├── load_regions.py       # State hierarchy seeder
-│   │   └── quality_checks.py     # 15 automated checks
 │   ├── api/
-│   │   └── main.py               # FastAPI application (12 endpoints)
+│   │   └── main.py
 │   ├── db/
-│   │   └── schema.sql            # Database schema
+│   │   └── schema.sql
+│   ├── etl/
+│   │   ├── check_questions.py
+│   │   ├── config.py
+│   │   ├── db.py
+│   │   ├── demo.py
+│   │   ├── load_accidents.py
+│   │   ├── load_geometries.py
+│   │   ├── load_indicators.py
+│   │   ├── load_regions.py
+│   │   ├── quality_checks.py
+│   │   └── run_import.py
 │   └── frontend/
 │       ├── src/
-│       │   ├── App.tsx
-│       │   ├── lib/              # API client, types, formatting
-│       │   └── components/       # React components
+│       │   ├── components/
+│       │   │   ├── ChoroplethMap.tsx
+│       │   │   ├── FilterBar.tsx
+│       │   │   ├── Headline.tsx
+│       │   │   ├── HotspotMap.tsx
+│       │   │   ├── RankingChart.tsx
+│       │   │   └── TrendChart.tsx
+│       │   ├── lib/
+│       │   │   ├── api.ts
+│       │   │   ├── format.ts
+│       │   │   ├── types.ts
+│       │   │   └── useAsync.ts
+│       │   └── App.tsx
 │       ├── package.json
 │       └── vite.config.ts
-├── Dockerfile
+├── .gitignore
+├── README.md
 ├── docker-compose.yml
-├── requirements.txt
-└── README.md
+└── requirements.txt
 ```
 
 ## Licence
