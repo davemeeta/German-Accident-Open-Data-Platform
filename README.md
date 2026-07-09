@@ -23,32 +23,32 @@ Built for the module *Datenbanken und Web-Techniken*.
 ## Screenshots
  
 ### Dashboard Overview
-![Dashboard Overview](/Users/meetadave/unfallatlas-risk-lens/outputs/screenshot_overview.png)
+![Dashboard Overview](/outputs/screenshot_overview.png)
  
 ### Choropleth & District Rankings
-![Choropleth and Rankings](/Users/meetadave/unfallatlas-risk-lens/outputs/screenshot_dashboard.png)
+![Choropleth and Rankings](outputs/screenshot_dashboard.png)
  
 ---
 
 ## Architecture
 ┌─────────────────────────────────────────────────────────────┐
-│                        Raw Data Sources                     │
+│                        Raw Data Sources                      │
 ├─────────────────┬───────────────────┬───────────────────────┤
 │  Unfallatlas    │   GENESIS 46251   │   Regionalstatistik   │
 │  9 CSV files    │   Registered cars │   Per-10k rate        │
 │  2016 – 2024    │   2020 – 2024     │   District GeoJSON    │
-└────────┬────────┴─────────┬─────────┴───────────┬───────────┘
+└────────┬────────┴─────────┬─────────┴──────────┬────────────┘
          │                  │                     │
          └──────────────────▼─────────────────────┘
-                    ┌───────────────────────────┐
-                    │  ETL Pipeline             │
-                    ├───────────────────────────┤
+                    ┌───────────────┐
+                    │  ETL Pipeline │
+                    ├───────────────┤
                     │ · Auto-discover files     │
                     │ · Column-variant resolve  │
                     │ · AGS key assembly        │
                     │ · Coordinate normalise    │
                     │ · Provenance recording    │
-                    └───────┬───────────────────┘
+                    └───────┬───────┘
                             │
                             ▼
                     ┌───────────────┐
@@ -65,7 +65,7 @@ Built for the module *Datenbanken und Web-Techniken*.
                     │   FastAPI     │
                     │   REST API    │
                     ├───────────────┤
-                    │ 12 endpoints  │
+                    │ 15 endpoints  │
                     │ OpenAPI docs  │
                     │ Caching + CORS│
                     └───────┬───────┘
@@ -79,7 +79,6 @@ Built for the module *Datenbanken und Web-Techniken*.
                     │ Recharts      │
                     │ TypeScript    │
                     └───────────────┘
-
 ## Quick Start
 
 ### Option A: Docker Compose (recommended)
