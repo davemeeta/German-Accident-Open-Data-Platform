@@ -31,6 +31,8 @@ Built for the module *Datenbanken und Web-Techniken*.
 ---
 
 ## Architecture
+
+```
 ┌─────────────────────────────────────────────────────────────┐
 │                        Raw Data Sources                      │
 ├─────────────────┬───────────────────┬───────────────────────┤
@@ -43,11 +45,11 @@ Built for the module *Datenbanken und Web-Techniken*.
                     ┌───────────────┐
                     │  ETL Pipeline │
                     ├───────────────┤
-                    │ · Auto-discover files     │
-                    │ · Column-variant resolve  │
-                    │ · AGS key assembly        │
-                    │ · Coordinate normalise    │
-                    │ · Provenance recording    │
+                    │ · Auto-discover files    │
+                    │ · Column-variant resolve │
+                    │ · AGS key assembly       │
+                    │ · Coordinate normalise   │
+                    │ · Provenance recording   │
                     └───────┬───────┘
                             │
                             ▼
@@ -79,6 +81,7 @@ Built for the module *Datenbanken und Web-Techniken*.
                     │ Recharts      │
                     │ TypeScript    │
                     └───────────────┘
+```
 ## Quick Start
 
 ### Option A: Docker Compose (recommended)
