@@ -31,32 +31,54 @@ Built for the module *Datenbanken und Web-Techniken*.
 ---
 
 ## Architecture
-
-```
-┌─────────────────────────────────────────────────────┐
-│                    Raw Data Sources                  │
-│  Unfallatlas CSV × 9  │  GENESIS CSV  │  GeoJSON    │
-└──────────┬────────────┴───────┬───────┴──────┬──────┘
-           │         ETL Pipeline              │
-           │  (column-variant resolution,      │
-           │   AGS assembly, normalisation)    │
-           └──────────────┬────────────────────┘
-                          ▼
-               ┌──────────────────┐
-               │  SQLite Database │
-               │  (canonical schema, 6 tables) │
-               └─────────┬────────┘
-                          ▼
-               ┌──────────────────┐
-               │  FastAPI REST API│
-               │  (12 endpoints)  │
-               └─────────┬────────┘
-                          ▼
-               ┌──────────────────┐
-               │  React Dashboard  │
-               │(Leaflet + Recharts) │
-               └──────────────────┘
-```
+┌─────────────────────────────────────────────────────────────┐
+│                        Raw Data Sources                     │
+├─────────────────┬───────────────────┬───────────────────────┤
+│  Unfallatlas    │   GENESIS 46251   │   Regionalstatistik   │
+│  9 CSV files    │   Registered cars │   Per-10k rate        │
+│  2016 – 2024    │   2020 – 2024     │   District GeoJSON    │
+└────────┬────────┴─────────┬─────────┴───────────┬───────────┘
+         │                  │                     │
+         └──────────────────▼─────────────────────┘
+                    ┌───────────────────────────┐
+                    │  ETL Pipeline             │
+                    ├───────────────────────────┤
+                    │ · Auto-discover files     │
+                    │ · Column-variant resolve  │
+                    │ · AGS key assembly        │
+                    │ · Coordinate normalise    │
+                    │ · Provenance recording    │
+                    └───────┬───────────────────┘
+                            │
+                            ▼
+                    ┌───────────────┐
+                    │    SQLite     │
+                    │   Database    │
+                    ├───────────────┤
+                    │ 6 tables      │
+                    │ 2,098,019 rows│
+                    │ AGS join key  │
+                    └───────┬───────┘
+                            │
+                            ▼
+                    ┌───────────────┐
+                    │   FastAPI     │
+                    │   REST API    │
+                    ├───────────────┤
+                    │ 12 endpoints  │
+                    │ OpenAPI docs  │
+                    │ Caching + CORS│
+                    └───────┬───────┘
+                            │
+                            ▼
+                    ┌───────────────┐
+                    │    React      │
+                    │   Dashboard   │
+                    ├───────────────┤
+                    │ Leaflet maps  │
+                    │ Recharts      │
+                    │ TypeScript    │
+                    └───────────────┘
 
 ## Quick Start
 
