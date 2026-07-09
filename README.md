@@ -14,7 +14,8 @@ Built for the module *Datenbanken und Web-Techniken*.
 ## Features
 
 - **2,098,019 accident records** from 9 annual Unfallatlas releases, harmonised via a column-variant resolution mechanism
-- **12-endpoint REST API** with OpenAPI/Swagger documentation, structured provenance in every response
+- **Car data loaded for **2020–2024** across all ~400 German districts (~2,000 rows)
+- **15-endpoint REST API** with OpenAPI/Swagger documentation, structured provenance in every response
 - **Interactive dashboard** with hotspot maps, choropleth visualisation, ranking charts, and trend analysis
 - **Multi-source queries** — e.g. accidents per 100,000 registered cars per district
 - **Fully reproducible** — one command rebuilds the entire database from raw source files
