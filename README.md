@@ -136,12 +136,12 @@ Place the following files before running the import:
 | Unfallatlas CSVs (per year) | `data/raw/unfallatlas/{year}/` | [opengeodata.nrw.de](https://www.opengeodata.nrw.de/produkte/transport_verkehr/unfallatlas/) |
 | Registered cars CSV | `data/raw/regional-stats/registered_cars_2023_2024.csv` | [GENESIS table 46251](https://www.regionalstatistik.de/genesis/online) |
 | Per-10k accidents CSV | `data/raw/regional-stats/accident_per_10000_per_city.csv` | [Regionalstatistik](https://www.regionalstatistik.de/genesis/online) |
-| District boundaries | `data/raw/boundaries/districts.geojson` | [OpenDataSoft](https://public.opendatasoft.com/explore/dataset/georef-germany-kreis/export/) |
+| District boundaries | `data/raw/boundaries/districts.geojson` | [isellsoap/deutschlandGeoJSON](https://github.com/isellsoap/deutschlandGeoJSON/blob/main/4_kreise/4_niedrig.geo.json) |
 
 **Quick download for district boundaries:**
 ```bash
-curl -o data/raw/boundaries/districts.geojson \
-  "https://public.opendatasoft.com/api/explore/v2.1/catalog/datasets/georef-germany-kreis/exports/geojson"
+curl -L -o data/raw/boundaries/districts.geojson \
+  https://raw.githubusercontent.com/isellsoap/deutschlandGeoJSON/main/4_kreise/4_niedrig.geo.json
 ```
 
 ## API Endpoints
