@@ -23,11 +23,11 @@ Built for the module *Datenbanken und Web-Techniken*.
 ## Screenshots
  
 ### Dashboard Overview
-![Dashboard Overview](/outputs/screenshot_overview.png)
+![Dashboard Overview](screenshot_overview.png)
  
 ### Choropleth & District Rankings
-![Choropleth and Rankings](outputs/screenshot_dashboard.png)
- 
+![Choropleth and Rankings](screenshot_dashboard.png)
+
 ---
 
 ## Architecture
