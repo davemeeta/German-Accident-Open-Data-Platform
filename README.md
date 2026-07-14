@@ -13,14 +13,15 @@ Built for the module *Datenbanken und Web-Techniken*.
 
 ## Features
 
-- **2,098,019 accident records** from 9 annual Unfallatlas releases, harmonised via a column-variant resolution mechanism
-- Car data loaded for **2020–2024** across all ~400 German districts (~2,000 rows)
-- **15-endpoint REST API** with OpenAPI/Swagger documentation, structured provenance in every response
-- **Interactive dashboard** with hotspot maps, choropleth visualisation, ranking charts, and trend analysis
-- **Multi-source queries** — e.g. accidents per 100,000 registered cars per district
-- **Fully reproducible** — one command rebuilds the entire database from raw source files
-- **15 automated quality checks** — coordinate validity, AGS integrity, referential integrity, duplicate detection
-
+- **2,098,019 accident records** from 9 annual Unfallatlas releases
+- **11 REST API endpoints** covering filtering, aggregation, hotspot detection, trends, and GeoJSON visualization
+- **Interactive React dashboard** with choropleth maps, hotspot analysis, district rankings, and yearly trends
+- **Flexible filtering** by state, region, year, month, severity, and participant type
+- **Structured provenance** included in API responses
+- **Automatic OpenAPI/Swagger documentation**
+- **Fully reproducible ETL pipeline** for rebuilding the database from raw sources
+- **15 automated data quality checks** ensuring data integrity
+  
 ## Screenshots
  
 ### Dashboard Overview
@@ -68,7 +69,7 @@ Built for the module *Datenbanken und Web-Techniken*.
                     │   FastAPI     │
                     │   REST API    │
                     ├───────────────┤
-                    │ 15 endpoints  │
+                    │ 11 endpoints  │
                     │ OpenAPI docs  │
                     │ Caching + CORS│
                     └───────┬───────┘
@@ -150,19 +151,15 @@ curl -L -o data/raw/boundaries/districts.geojson \
 |---|---|---|---|
 | 1 | `GET /` | Meta | Service index |
 | 2 | `GET /health` | Meta | Liveness check |
-| 3 | `GET /regions` | Regions | List regions by level or name |
-| 4 | `GET /regions/choropleth` | GeoJSON | District polygons for choropleth maps |
-| 5 | `GET /regions/{ags}` | Regions | Single region with indicator values |
-| 6 | `GET /accidents` | List | Paginated individual accident rows |
-| 7 | `GET /accidents/near` | Spatial | Accidents within radius of a point |
-| 8 | `GET /aggregates/accidents` | Count | Total accident count for any filter |
-| 9 | `GET /aggregates/accidents/by-region` | Ranking | Counts grouped by state/district |
-| 10 | `GET /aggregates/rate` | Multi-source | Accidents per 100k cars/inhabitants |
-| 11 | `GET /aggregates/hotspots` | Spatial | Severity-ranked crash clusters |
-| 12 | `GET /stats/first-year` | Temporal | Earliest data year per state |
-| 13 | `GET /stats/trend` | Trend | Accident counts per year |
-| 14 | `GET /metadata/sources` | Provenance | Data sources and licences |
-| 15 | `GET /import-runs` | Provenance | Import audit trail |
+| 3 | `GET /aggregates/accidents` | Count | Total accident count with optional filters |
+| 4 | `GET /aggregates/accidents/by-region` | Ranking | Accident counts grouped by state, district or municipality |
+| 5 | `GET /aggregates/hotspots` | Spatial | Severity-ranked accident hotspot clusters |
+| 6 | `GET /regions/choropleth` | GeoJSON | District GeoJSON with accident count or rate values |
+| 7 | `GET /stats/trend` | Trend | Yearly accident trends |
+| 8 | `GET /stats/first-year` | Temporal | Earliest accident year available |
+| 9 | `GET /accidents` | List | Paginated accident records with filtering |
+|10 | `GET /metadata/sources` | Provenance | Data source and licence information |
+|11 | `GET /import-runs` | Provenance | ETL import history and audit trail |
  
 Full interactive documentation: `http://127.0.0.1:8000/docs`
  
