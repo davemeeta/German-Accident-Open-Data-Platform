@@ -1,0 +1,15 @@
+# Additional dependencies for the natural-language agent (mcp_server/, agent/, evals/).
+# Kept separate from requirements.txt so the existing FastAPI backend's dependency set
+# is untouched. Install into the same venv as requirements.txt (the agent talks to the
+# API over HTTP, it doesn't import it).
+#
+# LLM: two switchable backends (see agent/backends/), default is Groq.
+#   - groq (default): hosted, OpenAI-compatible, free tier, no local resource
+#     constraints. Needs GROQ_API_KEY exported (free key: console.groq.com/keys).
+#   - ollama: fully local, zero cost, zero external dependency, but weaker
+#     tool-calling reliability on hardware-appropriate model sizes (see README
+#     for the documented failure modes found when comparing the two).
+# httpx below talks to both backends directly - no separate SDK needed for either.
+mcp==1.29.0
+httpx==0.28.1
+pytest==9.1.1  # unit tests only (tests/) - the eval suite itself needs a live backend + LLM key, not run in CI

@@ -1,0 +1,19 @@
+
+source myenv/bin/activate
+
+cd src
+python -m etl.run_import
+
+python -m etl.demo       
+
+Terminal 2
+source myenv/bin/activate
+cd src
+uvicorn api.main:app --reload
+
+http://127.0.0.1:8000/docs
+
+Terminal 3
+source myenv/bin/activate
+cd src/frontend
+npm run dev

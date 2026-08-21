@@ -40,17 +40,19 @@ def main():
 
     print("\n6. Accidents per 100,000 registered cars — top 5 districts (2024):")
     rows = conn.execute("""
-        SELECT r.name, COUNT(*) AS acc,
-               iv.value AS cars,
-               ROUND(COUNT(*) * 100000.0 / iv.value, 2) AS rate
+        SELECT r.name, r.ags,COUNT(*) AS acc,iv.value AS cars,
+        ROUND(COUNT(*) * 100000.0 / iv.value, 2) AS rate
         FROM accidents a
-        JOIN regions r ON r.region_id = a.region_id
+        JOIN regions r ON r.ags = substr(a.municipality_ags, 1, 5)
         JOIN indicator_values iv ON iv.region_id = r.region_id
         JOIN indicators i ON i.indicator_id = iv.indicator_id
-        WHERE i.code='CARS' AND iv.year=2024
-          AND a.year=2024 AND length(r.ags)=5
+        WHERE i.code = 'CARS'
+        AND iv.year = 2024
+        AND a.year = 2024
+        AND length(r.ags) = 5
         GROUP BY r.region_id
-        ORDER BY rate DESC LIMIT 5
+        ORDER BY rate DESC
+        LIMIT 5
     """).fetchall()
     if rows:
         for r in rows:
@@ -61,14 +63,13 @@ def main():
     print("\n7. Accidents per 10,000 inhabitants — top 5 districts 2023")
     print("   (cross-source: Unfallatlas accidents joined to Regionalstatistik):")
     rows = conn.execute("""
-        SELECT r.name, COUNT(*) AS acc, iv.value AS official_rate
-        FROM accidents a
-        JOIN regions r ON r.region_id = a.region_id
-        JOIN indicator_values iv ON iv.region_id = r.region_id
+        SELECT r.name,r.ags, iv.value AS official_rate,(SELECT COUNT(*) FROM accidents a
+        WHERE a.municipality_ags LIKE r.ags || '%' AND a.year=2023) AS acc
+        FROM indicator_values iv
         JOIN indicators i ON i.indicator_id = iv.indicator_id
+        JOIN regions r ON r.region_id = iv.region_id
         WHERE i.code='ACC_PER_10K' AND iv.year=2023
-          AND a.year=2023 AND length(r.ags)=5
-        GROUP BY r.region_id
+        AND length(r.ags)=5
         ORDER BY official_rate DESC LIMIT 5
     """).fetchall()
     if rows:

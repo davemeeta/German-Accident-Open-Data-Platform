@@ -1,0 +1,608 @@
+{
+  "backend": "groq:openai/gpt-oss-120b",
+  "generated_at": "2026-08-20T00:17:41.551512+00:00",
+  "total_questions": 28,
+  "passed": 8,
+  "failed": 20,
+  "failure_rate": 0.714,
+  "by_category": {
+    "simple_lookup": {
+      "total": 6,
+      "passed": 5,
+      "failures": [
+        {
+          "id": "sl-02",
+          "category": "simple_lookup",
+          "question": "How many fatal accidents were there in North Rhine-Westphalia in 2021?",
+          "narration": "I found a fuzzy‑suggestion match for “North Rhine‑Westphalia”:\n\n- AGS 05 – Nordrhein‑Westfalen (state)\n\nWould you like me to use this region code to retrieve the fatal‑accident count for 2021?",
+          "tool_call_count": 1,
+          "passed": false,
+          "reasons": [
+            "missing expected number(s): ['377']"
+          ],
+          "trace_path": "/Users/meetadave/unfallatlas-risk-lens/agent/logs/1787184662-dc79f650.json"
+        }
+      ]
+    },
+    "trend": {
+      "total": 4,
+      "passed": 3,
+      "failures": [
+        {
+          "id": "tr-04",
+          "category": "trend",
+          "question": "Show me the year-by-year accident trend for North Rhine-Westphalia.",
+          "narration": null,
+          "tool_call_count": 0,
+          "passed": false,
+          "reasons": [
+            "agent error: ReadError: "
+          ],
+          "trace_path": null
+        }
+      ]
+    },
+    "comparison": {
+      "total": 4,
+      "passed": 0,
+      "failures": [
+        {
+          "id": "cp-01",
+          "category": "comparison",
+          "question": "Compare the number of accidents in Bavaria between 2019 and 2022.",
+          "narration": null,
+          "tool_call_count": 0,
+          "passed": false,
+          "reasons": [
+            "agent error: ConnectTimeout: "
+          ],
+          "trace_path": null
+        },
+        {
+          "id": "cp-02",
+          "category": "comparison",
+          "question": "Which state had more accidents in 2022: Bavaria or North Rhine-Westphalia?",
+          "narration": null,
+          "tool_call_count": 0,
+          "passed": false,
+          "reasons": [
+            "agent error: ConnectError: [Errno 8] nodename nor servname provided, or not known"
+          ],
+          "trace_path": null
+        },
+        {
+          "id": "cp-03",
+          "category": "comparison",
+          "question": "Compare fatal accidents to serious accidents in Hessen in 2021.",
+          "narration": null,
+          "tool_call_count": 0,
+          "passed": false,
+          "reasons": [
+            "agent error: ConnectError: [Errno 8] nodename nor servname provided, or not known"
+          ],
+          "trace_path": null
+        },
+        {
+          "id": "cp-04",
+          "category": "comparison",
+          "question": "How did fatal accidents in Bavaria change between 2016 and 2024?",
+          "narration": null,
+          "tool_call_count": 0,
+          "passed": false,
+          "reasons": [
+            "agent error: ConnectError: [Errno 8] nodename nor servname provided, or not known"
+          ],
+          "trace_path": null
+        }
+      ]
+    },
+    "name_resolution": {
+      "total": 5,
+      "passed": 0,
+      "failures": [
+        {
+          "id": "nr-01",
+          "category": "name_resolution",
+          "question": "How many accidents happened in the city of Munich itself (the kreisfreie Stadt, not the surrounding Landkreis) in 2022?",
+          "narration": null,
+          "tool_call_count": 0,
+          "passed": false,
+          "reasons": [
+            "agent error: ConnectError: [Errno 8] nodename nor servname provided, or not known"
+          ],
+          "trace_path": null
+        },
+        {
+          "id": "nr-02",
+          "category": "name_resolution",
+          "question": "How many accidents were there in Sachsen in 2022?",
+          "narration": null,
+          "tool_call_count": 0,
+          "passed": false,
+          "reasons": [
+            "agent error: ConnectError: [Errno 8] nodename nor servname provided, or not known"
+          ],
+          "trace_path": null
+        },
+        {
+          "id": "nr-03",
+          "category": "name_resolution",
+          "question": "How many accidents were recorded in Frankfurt am Main in 2022?",
+          "narration": null,
+          "tool_call_count": 0,
+          "passed": false,
+          "reasons": [
+            "agent error: ConnectError: [Errno 8] nodename nor servname provided, or not known"
+          ],
+          "trace_path": null
+        },
+        {
+          "id": "nr-04",
+          "category": "name_resolution",
+          "question": "How many accidents happened in the Rosenheim district in 2022?",
+          "narration": null,
+          "tool_call_count": 0,
+          "passed": false,
+          "reasons": [
+            "agent error: ConnectError: [Errno 8] nodename nor servname provided, or not known"
+          ],
+          "trace_path": null
+        },
+        {
+          "id": "nr-05",
+          "category": "name_resolution",
+          "question": "How many accidents happened in the city of Nürnberg itself (not Nürnberger Land) in 2022?",
+          "narration": null,
+          "tool_call_count": 0,
+          "passed": false,
+          "reasons": [
+            "agent error: ConnectError: [Errno 8] nodename nor servname provided, or not known"
+          ],
+          "trace_path": null
+        }
+      ]
+    },
+    "ambiguous": {
+      "total": 4,
+      "passed": 0,
+      "failures": [
+        {
+          "id": "am-01",
+          "category": "ambiguous",
+          "question": "How many accidents happened in Munich?",
+          "narration": null,
+          "tool_call_count": 0,
+          "passed": false,
+          "reasons": [
+            "agent error: ConnectError: [Errno 8] nodename nor servname provided, or not known"
+          ],
+          "trace_path": null
+        },
+        {
+          "id": "am-02",
+          "category": "ambiguous",
+          "question": "How many accidents happened in Frankfurt?",
+          "narration": null,
+          "tool_call_count": 0,
+          "passed": false,
+          "reasons": [
+            "agent error: ConnectError: [Errno 8] nodename nor servname provided, or not known"
+          ],
+          "trace_path": null
+        },
+        {
+          "id": "am-03",
+          "category": "ambiguous",
+          "question": "How many accidents happened in Neustadt?",
+          "narration": null,
+          "tool_call_count": 0,
+          "passed": false,
+          "reasons": [
+            "agent error: ConnectError: [Errno 8] nodename nor servname provided, or not known"
+          ],
+          "trace_path": null
+        },
+        {
+          "id": "am-04",
+          "category": "ambiguous",
+          "question": "How many accidents happened in Landau?",
+          "narration": null,
+          "tool_call_count": 0,
+          "passed": false,
+          "reasons": [
+            "agent error: ConnectError: [Errno 8] nodename nor servname provided, or not known"
+          ],
+          "trace_path": null
+        }
+      ]
+    },
+    "no_answer": {
+      "total": 5,
+      "passed": 0,
+      "failures": [
+        {
+          "id": "na-01",
+          "category": "no_answer",
+          "question": "What was the average speed of vehicles involved in accidents in 2022?",
+          "narration": null,
+          "tool_call_count": 0,
+          "passed": false,
+          "reasons": [
+            "agent error: ConnectError: [Errno 8] nodename nor servname provided, or not known"
+          ],
+          "trace_path": null
+        },
+        {
+          "id": "na-02",
+          "category": "no_answer",
+          "question": "What was the age of drivers involved in fatal accidents?",
+          "narration": null,
+          "tool_call_count": 0,
+          "passed": false,
+          "reasons": [
+            "agent error: ConnectError: [Errno 8] nodename nor servname provided, or not known"
+          ],
+          "trace_path": null
+        },
+        {
+          "id": "na-03",
+          "category": "no_answer",
+          "question": "What were the lighting conditions during accidents in Bavaria in 2022?",
+          "narration": null,
+          "tool_call_count": 0,
+          "passed": false,
+          "reasons": [
+            "agent error: ConnectError: [Errno 8] nodename nor servname provided, or not known"
+          ],
+          "trace_path": null
+        },
+        {
+          "id": "na-04",
+          "category": "no_answer",
+          "question": "How many accidents were caused by drunk driving?",
+          "narration": null,
+          "tool_call_count": 0,
+          "passed": false,
+          "reasons": [
+            "agent error: ConnectError: [Errno 8] nodename nor servname provided, or not known"
+          ],
+          "trace_path": null
+        },
+        {
+          "id": "na-05",
+          "category": "no_answer",
+          "question": "What is the total economic cost of accidents in Germany?",
+          "narration": null,
+          "tool_call_count": 0,
+          "passed": false,
+          "reasons": [
+            "agent error: ConnectError: [Errno 8] nodename nor servname provided, or not known"
+          ],
+          "trace_path": null
+        }
+      ]
+    }
+  },
+  "results": [
+    {
+      "id": "sl-01",
+      "category": "simple_lookup",
+      "question": "How many accidents were there in Bavaria in 2022?",
+      "narration": "The total number of accidents in Bavaria (state code BY) in 2022 was **44 680**. This figure comes from a call to `get_accident_count` with the parameters `state=\"BY\"` and `year=2022`.",
+      "tool_call_count": 1,
+      "passed": true,
+      "reasons": [],
+      "trace_path": "/Users/meetadave/unfallatlas-risk-lens/agent/logs/1787184660-fee78bbd.json"
+    },
+    {
+      "id": "sl-02",
+      "category": "simple_lookup",
+      "question": "How many fatal accidents were there in North Rhine-Westphalia in 2021?",
+      "narration": "I found a fuzzy‑suggestion match for “North Rhine‑Westphalia”:\n\n- AGS 05 – Nordrhein‑Westfalen (state)\n\nWould you like me to use this region code to retrieve the fatal‑accident count for 2021?",
+      "tool_call_count": 1,
+      "passed": false,
+      "reasons": [
+        "missing expected number(s): ['377']"
+      ],
+      "trace_path": "/Users/meetadave/unfallatlas-risk-lens/agent/logs/1787184662-dc79f650.json"
+    },
+    {
+      "id": "sl-03",
+      "category": "simple_lookup",
+      "question": "How many bicycle accidents were there in Schleswig-Holstein in 2020?",
+      "narration": "Schleswig‑Holstein had **4,005 bicycle accidents in 2020** (from `get_accident_count` with `state=\"SH\"`, `vehicle_types=[\"bicycle\"]`, `year=2020`).",
+      "tool_call_count": 1,
+      "passed": true,
+      "reasons": [],
+      "trace_path": "/Users/meetadave/unfallatlas-risk-lens/agent/logs/1787184698-0065965e.json"
+    },
+    {
+      "id": "sl-04",
+      "category": "simple_lookup",
+      "question": "How many serious accidents were there in Hessen in 2021?",
+      "narration": "There were **2,906 serious accidents** in Hessen in 2021, according to the `get_accident_count` query with the filters `category=serious`, `state=HE`, `year=2021`.",
+      "tool_call_count": 1,
+      "passed": true,
+      "reasons": [],
+      "trace_path": "/Users/meetadave/unfallatlas-risk-lens/agent/logs/1787184748-db012b45.json"
+    },
+    {
+      "id": "sl-05",
+      "category": "simple_lookup",
+      "question": "How many pedestrian accidents were there across all of Germany in 2020?",
+      "narration": "I called **get_accident_count** with the filters `vehicle_types=[\"pedestrian\"]` and `year=2020`. The tool returned an accident count of **20,105** pedestrian accidents in Germany for 2020.",
+      "tool_call_count": 1,
+      "passed": true,
+      "reasons": [],
+      "trace_path": "/Users/meetadave/unfallatlas-risk-lens/agent/logs/1787184797-4e096adf.json"
+    },
+    {
+      "id": "sl-06",
+      "category": "simple_lookup",
+      "question": "How many car accidents were there in Saarland in 2019?",
+      "narration": "I called **get_accident_count** with the filters:\n\n- **state**: “SL” (Saarland)  \n- **year**: 2019  \n- **vehicle_types**: [\"car\"]\n\nThe tool returned an accident count of **2,873** car accidents in Saarland in 2019.",
+      "tool_call_count": 1,
+      "passed": true,
+      "reasons": [],
+      "trace_path": "/Users/meetadave/unfallatlas-risk-lens/agent/logs/1787184846-866532e3.json"
+    },
+    {
+      "id": "tr-01",
+      "category": "trend",
+      "question": "Show me the year-by-year accident trend for Saxony from 2016 to 2024.",
+      "narration": "**Tool used:** `get_accident_trend` with filter `state = \"SN\"` (Saxony).\n\n**Result (year‑by‑year accident counts):**\n\n| Year | Accident count |\n|------|----------------|\n| 2016 | 12 823 |\n| 2017 | 12 516 |\n| 2018 | 13 101 |\n| 2019 | 12 625 |\n| 2020 | 11 310 |\n| 2021 | 10 886 |\n| 2022 | 12 471 |\n| 2023 | 12 513 |\n| 2024 | 12 847 |\n\nThese numbers are taken directly from the tool response; no calculations or aggregations have been performed beyond what the tool returned.",
+      "tool_call_count": 1,
+      "passed": true,
+      "reasons": [],
+      "trace_path": "/Users/meetadave/unfallatlas-risk-lens/agent/logs/1787184874-726fa43f.json"
+    },
+    {
+      "id": "tr-02",
+      "category": "trend",
+      "question": "What is the earliest year of accident data available overall?",
+      "narration": "I called **get_first_data_year** with no state filter. The tool returned:\n\n- **Scope:** overall  \n- **First year of available accident data:** **2016**\n\nSo the earliest year of accident data available overall is 2016.",
+      "tool_call_count": 1,
+      "passed": true,
+      "reasons": [],
+      "trace_path": "/Users/meetadave/unfallatlas-risk-lens/agent/logs/1787184904-6dd590c0.json"
+    },
+    {
+      "id": "tr-03",
+      "category": "trend",
+      "question": "What is the earliest year of accident data available specifically for Berlin?",
+      "narration": "I called **get_first_data_year** with the parameter `state = \"BE\"` (Berlin).  \nThe tool returned:\n\n- **first_year**: 2018  \n\nSo, the earliest year for which accident data is available for Berlin is **2018**.",
+      "tool_call_count": 1,
+      "passed": true,
+      "reasons": [],
+      "trace_path": "/Users/meetadave/unfallatlas-risk-lens/agent/logs/1787184929-3bc8fc5f.json"
+    },
+    {
+      "id": "tr-04",
+      "category": "trend",
+      "question": "Show me the year-by-year accident trend for North Rhine-Westphalia.",
+      "narration": null,
+      "tool_call_count": 0,
+      "passed": false,
+      "reasons": [
+        "agent error: ReadError: "
+      ],
+      "trace_path": null
+    },
+    {
+      "id": "cp-01",
+      "category": "comparison",
+      "question": "Compare the number of accidents in Bavaria between 2019 and 2022.",
+      "narration": null,
+      "tool_call_count": 0,
+      "passed": false,
+      "reasons": [
+        "agent error: ConnectTimeout: "
+      ],
+      "trace_path": null
+    },
+    {
+      "id": "cp-02",
+      "category": "comparison",
+      "question": "Which state had more accidents in 2022: Bavaria or North Rhine-Westphalia?",
+      "narration": null,
+      "tool_call_count": 0,
+      "passed": false,
+      "reasons": [
+        "agent error: ConnectError: [Errno 8] nodename nor servname provided, or not known"
+      ],
+      "trace_path": null
+    },
+    {
+      "id": "cp-03",
+      "category": "comparison",
+      "question": "Compare fatal accidents to serious accidents in Hessen in 2021.",
+      "narration": null,
+      "tool_call_count": 0,
+      "passed": false,
+      "reasons": [
+        "agent error: ConnectError: [Errno 8] nodename nor servname provided, or not known"
+      ],
+      "trace_path": null
+    },
+    {
+      "id": "cp-04",
+      "category": "comparison",
+      "question": "How did fatal accidents in Bavaria change between 2016 and 2024?",
+      "narration": null,
+      "tool_call_count": 0,
+      "passed": false,
+      "reasons": [
+        "agent error: ConnectError: [Errno 8] nodename nor servname provided, or not known"
+      ],
+      "trace_path": null
+    },
+    {
+      "id": "nr-01",
+      "category": "name_resolution",
+      "question": "How many accidents happened in the city of Munich itself (the kreisfreie Stadt, not the surrounding Landkreis) in 2022?",
+      "narration": null,
+      "tool_call_count": 0,
+      "passed": false,
+      "reasons": [
+        "agent error: ConnectError: [Errno 8] nodename nor servname provided, or not known"
+      ],
+      "trace_path": null
+    },
+    {
+      "id": "nr-02",
+      "category": "name_resolution",
+      "question": "How many accidents were there in Sachsen in 2022?",
+      "narration": null,
+      "tool_call_count": 0,
+      "passed": false,
+      "reasons": [
+        "agent error: ConnectError: [Errno 8] nodename nor servname provided, or not known"
+      ],
+      "trace_path": null
+    },
+    {
+      "id": "nr-03",
+      "category": "name_resolution",
+      "question": "How many accidents were recorded in Frankfurt am Main in 2022?",
+      "narration": null,
+      "tool_call_count": 0,
+      "passed": false,
+      "reasons": [
+        "agent error: ConnectError: [Errno 8] nodename nor servname provided, or not known"
+      ],
+      "trace_path": null
+    },
+    {
+      "id": "nr-04",
+      "category": "name_resolution",
+      "question": "How many accidents happened in the Rosenheim district in 2022?",
+      "narration": null,
+      "tool_call_count": 0,
+      "passed": false,
+      "reasons": [
+        "agent error: ConnectError: [Errno 8] nodename nor servname provided, or not known"
+      ],
+      "trace_path": null
+    },
+    {
+      "id": "nr-05",
+      "category": "name_resolution",
+      "question": "How many accidents happened in the city of Nürnberg itself (not Nürnberger Land) in 2022?",
+      "narration": null,
+      "tool_call_count": 0,
+      "passed": false,
+      "reasons": [
+        "agent error: ConnectError: [Errno 8] nodename nor servname provided, or not known"
+      ],
+      "trace_path": null
+    },
+    {
+      "id": "am-01",
+      "category": "ambiguous",
+      "question": "How many accidents happened in Munich?",
+      "narration": null,
+      "tool_call_count": 0,
+      "passed": false,
+      "reasons": [
+        "agent error: ConnectError: [Errno 8] nodename nor servname provided, or not known"
+      ],
+      "trace_path": null
+    },
+    {
+      "id": "am-02",
+      "category": "ambiguous",
+      "question": "How many accidents happened in Frankfurt?",
+      "narration": null,
+      "tool_call_count": 0,
+      "passed": false,
+      "reasons": [
+        "agent error: ConnectError: [Errno 8] nodename nor servname provided, or not known"
+      ],
+      "trace_path": null
+    },
+    {
+      "id": "am-03",
+      "category": "ambiguous",
+      "question": "How many accidents happened in Neustadt?",
+      "narration": null,
+      "tool_call_count": 0,
+      "passed": false,
+      "reasons": [
+        "agent error: ConnectError: [Errno 8] nodename nor servname provided, or not known"
+      ],
+      "trace_path": null
+    },
+    {
+      "id": "am-04",
+      "category": "ambiguous",
+      "question": "How many accidents happened in Landau?",
+      "narration": null,
+      "tool_call_count": 0,
+      "passed": false,
+      "reasons": [
+        "agent error: ConnectError: [Errno 8] nodename nor servname provided, or not known"
+      ],
+      "trace_path": null
+    },
+    {
+      "id": "na-01",
+      "category": "no_answer",
+      "question": "What was the average speed of vehicles involved in accidents in 2022?",
+      "narration": null,
+      "tool_call_count": 0,
+      "passed": false,
+      "reasons": [
+        "agent error: ConnectError: [Errno 8] nodename nor servname provided, or not known"
+      ],
+      "trace_path": null
+    },
+    {
+      "id": "na-02",
+      "category": "no_answer",
+      "question": "What was the age of drivers involved in fatal accidents?",
+      "narration": null,
+      "tool_call_count": 0,
+      "passed": false,
+      "reasons": [
+        "agent error: ConnectError: [Errno 8] nodename nor servname provided, or not known"
+      ],
+      "trace_path": null
+    },
+    {
+      "id": "na-03",
+      "category": "no_answer",
+      "question": "What were the lighting conditions during accidents in Bavaria in 2022?",
+      "narration": null,
+      "tool_call_count": 0,
+      "passed": false,
+      "reasons": [
+        "agent error: ConnectError: [Errno 8] nodename nor servname provided, or not known"
+      ],
+      "trace_path": null
+    },
+    {
+      "id": "na-04",
+      "category": "no_answer",
+      "question": "How many accidents were caused by drunk driving?",
+      "narration": null,
+      "tool_call_count": 0,
+      "passed": false,
+      "reasons": [
+        "agent error: ConnectError: [Errno 8] nodename nor servname provided, or not known"
+      ],
+      "trace_path": null
+    },
+    {
+      "id": "na-05",
+      "category": "no_answer",
+      "question": "What is the total economic cost of accidents in Germany?",
+      "narration": null,
+      "tool_call_count": 0,
+      "passed": false,
+      "reasons": [
+        "agent error: ConnectError: [Errno 8] nodename nor servname provided, or not known"
+      ],
+      "trace_path": null
+    }
+  ]
+}

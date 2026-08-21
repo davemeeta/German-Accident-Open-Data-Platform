@@ -17,13 +17,13 @@ export function RankingChart({ filters }: { filters: Filters }) {
   return (
     <Panel title="Top districts" subtitle="by accident count" loading={loading} error={error}>
       {rows.length > 0 ? (
-        <ResponsiveContainer width="100%" height={320}>
+        <ResponsiveContainer width="100%" height={450}>
           <BarChart data={rows} layout="vertical" margin={{ left: 8, right: 40 }}>
             <XAxis type="number" tick={{ fill: "#8896ad", fontSize: 11 }} axisLine={false} tickLine={false} />
-            <YAxis type="category" dataKey="name" width={160}
+            <YAxis type="category" dataKey="name" width={120}
               tick={{ fill: "#e8eef7", fontSize: 11 }} axisLine={false} tickLine={false} />
-            <Tooltip cursor={{ fill: "rgba(255,255,255,0.04)" }}
-              contentStyle={{ background: "#0a0f1c", border: "1px solid #243049", borderRadius: 8, color: "#e8eef7" }}
+            <Tooltip cursor={{ fill: "rgba(67, 72, 81, 0.45)" }}
+              contentStyle={{ background: "#fefefe", border: "1px solid #070707", borderRadius: 8, color: "#000000" }}
               formatter={(v) => [fmt(Number(v)), "accidents"]} />
             <Bar dataKey="value" radius={[0, 4, 4, 0]}>
               {rows.map((_, i) => <Cell key={i} fill={color} />)}

@@ -6,6 +6,7 @@ import { HotspotMap } from "./components/HotspotMap";
 import { ChoroplethMap } from "./components/ChoroplethMap";
 import { RankingChart } from "./components/RankingChart";
 import { TrendChart } from "./components/TrendChart";
+import { AgentChat } from "./components/AgentChat";
 import { ProvenanceFooter } from "./components/ProvenanceFooter";
 
 export default function App() {
@@ -33,6 +34,22 @@ export default function App() {
     </div>
   </div>
 </header>
+      <div className="max-w-6xl mx-auto px-6 pb-6">
+        <div className="flex items-center gap-2 mb-3">
+          <span className="text-brand text-base leading-none">✦</span>
+          <h2 className="text-xs font-semibold uppercase tracking-widest text-muted">Ask Atlas</h2>
+        </div>
+        <AgentChat />
+      </div>
+
+      <div className="max-w-6xl mx-auto px-6 flex items-center gap-4 pb-3">
+        <div className="h-px flex-1 bg-line" />
+        <span className="text-xs font-semibold uppercase tracking-widest text-muted whitespace-nowrap">
+          Or Explore The Dashboard Yourself
+        </span>
+        <div className="h-px flex-1 bg-line" />
+      </div>
+
       <FilterBar filters={filters} onChange={setFilters} />
       <main className="max-w-6xl mx-auto px-6 py-6 space-y-6">
         <div className="grid lg:grid-cols-3 gap-6">

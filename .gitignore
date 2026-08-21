@@ -68,6 +68,9 @@ src/api/__init__.py
 src/frontend/node_modules/
 src/frontend/dist/
 
+# ── Agent runtime trace logs (ephemeral, rotated automatically) ──
+agent/logs/
+
 # ── Misc ─────────────────────────────────────────────────
 *.log
 *.tmp
