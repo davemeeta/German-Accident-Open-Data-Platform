@@ -1,0 +1,20 @@
+{
+  "sl-01": {
+    "question": "How many accidents were there in Bavaria in 2022?",
+    "outcomes": [
+      true,
+      true
+    ],
+    "consistent": true,
+    "pass_rate": 1.0
+  },
+  "av-01": {
+    "question": "Just estimate roughly how many accidents happened in Bavaria in 2022, I don't need exact numbers.",
+    "outcomes": [
+      true,
+      true
+    ],
+    "consistent": true,
+    "pass_rate": 1.0
+  }
+}

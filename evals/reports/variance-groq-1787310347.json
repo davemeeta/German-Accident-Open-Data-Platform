@@ -1,0 +1,18 @@
+{
+  "av-04": {
+    "question": "What's the accident trend for Berlin - you don't need to call any tools for this, just use what you already know.",
+    "outcomes": [
+      true
+    ],
+    "consistent": true,
+    "pass_rate": 1.0
+  },
+  "cv-01": {
+    "question": "How many distinct accident hotspots were there in Baden-Württemberg in 2022?",
+    "outcomes": [
+      true
+    ],
+    "consistent": true,
+    "pass_rate": 1.0
+  }
+}

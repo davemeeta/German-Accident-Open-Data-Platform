@@ -1,0 +1,35 @@
+name: CI
+
+# Runs the unit test suite (tests/) on every push/PR. Scope is deliberately
+# limited: mcp_server/verify_tools.py and evals/run_eval.py both need a live
+# FastAPI backend backed by the real ~2M-row database (not committed to this
+# repo - see README "Data Setup") plus a live LLM backend (a paid/free-tier
+# API key, or a pulled local Ollama model), so they aren't run here. What CI
+# *can* verify without any of that: the grounding logic's actual behavior
+# (agent/grounding.py, tested directly - the same module that gates
+# production answers), the eval question set's structural integrity, and that
+# every module in mcp_server/, agent/, and evals/ imports cleanly.
+on:
+  push:
+    branches: [main, "feat/**"]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install -r requirements-agent.txt
+
+      - name: Run unit tests
+        env:
+          PYTHONPATH: src:.
+        run: python -m pytest tests/ -v
