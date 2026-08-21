@@ -62,9 +62,10 @@ The AI agent's model can be either **Groq** (a free cloud service, the default) 
 
 ### Screenshots
 
-| Dashboard Overview | Choropleth & District Rankings |
-|---|---|
-| ![Dashboard Overview](outputs/screenshot_overview.png) | ![Choropleth and Rankings](outputs/screenshot_dashboard.png) |
+![Dashboard Overview](outputs/screenshot_dashboard_1.png)
+![Dashboard with Atlas](outputs/screenshot_dashboard_2.png)
+![Choropleth & District Rankings](outputs/screenshot_dashboard_3.png)
+
 
 ---
 
