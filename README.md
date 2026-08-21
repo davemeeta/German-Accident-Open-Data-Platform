@@ -2,12 +2,32 @@
 
 **German Road Accident Open Data Platform with a natural-language AI agent.** Integrates 2M+ accident records (2016–2024), regional statistics, and district boundaries into one system: a database, a REST API, a dashboard, and an AI agent that answers plain-English questions about the data — grounded in real numbers, never a guess.
 
-Built for the module *Datenbanken und Web-Techniken* at BTU Cottbus-Senftenberg. Built in two stages: first the data platform (database, API, dashboard), then an AI agent on top of it that lets you just ask questions instead of clicking through filters.
 
 ![Python](https://img.shields.io/badge/Python-3.10+-blue)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.110+-green)
 ![React](https://img.shields.io/badge/React-18+-61DAFB)
 ![License](https://img.shields.io/badge/Data_License-dl--de/by--2--0-orange)
+
+---
+
+## Features
+
+- **2,098,019 accident records** from 9 annual Unfallatlas releases
+- **11 REST API endpoints** covering filtering, aggregation, hotspot detection, trends, and GeoJSON visualization
+- **Interactive React dashboard** with choropleth maps, hotspot analysis, district rankings, and yearly trends
+- **Flexible filtering** by state, region, year, month, severity, and participant type
+- **Structured provenance** included in API responses
+- **Automatic OpenAPI/Swagger documentation**
+- **Fully reproducible ETL pipeline** for rebuilding the database from raw sources
+- **15 automated data quality checks** ensuring data integrity
+  
+## Screenshots
+ 
+### Dashboard Overview
+![Dashboard Overview](screenshot_overview.png)
+ 
+### Choropleth & District Rankings
+![Choropleth and Rankings](screenshot_dashboard.png)
 
 ---
 
@@ -117,7 +137,7 @@ Place these files before running the import:
 | Unfallatlas CSVs (per year) | `data/raw/unfallatlas/{year}/` | [opengeodata.nrw.de](https://www.opengeodata.nrw.de/produkte/transport_verkehr/unfallatlas/) |
 | Registered cars CSV | `data/raw/regional-stats/registered_cars_2023_2024.csv` | [GENESIS table 46251](https://www.regionalstatistik.de/genesis/online) |
 | Per-10k accidents CSV | `data/raw/regional-stats/accident_per_10000_per_city.csv` | [Regionalstatistik](https://www.regionalstatistik.de/genesis/online) |
-| District boundaries | `data/raw/boundaries/districts.geojson` | [OpenDataSoft](https://public.opendatasoft.com/explore/dataset/georef-germany-kreis/export/) |
+| District boundaries | `data/raw/boundaries/districts.geojson` | [isellsoap/deutschlandGeoJSON](https://github.com/isellsoap/deutschlandGeoJSON/blob/main/4_kreise/4_niedrig.geo.json) |
 
 ---
 
@@ -238,8 +258,8 @@ unfallatlas-risk-lens/
 ### API Endpoints (12)
 
 | # | Endpoint | Category | Description |
-|---|----------|----------|-------------|
-| 1 | `GET /` | Meta | Service index with version and endpoint list |
+|---|---|---|---|
+| 1 | `GET /` | Meta | Service index |
 | 2 | `GET /health` | Meta | Liveness check |
 | 3 | `GET /aggregates/accidents` | Count | Total accident count for any filter combination |
 | 4 | `GET /aggregates/accidents/by-region` | Ranking | Counts grouped by state/district/municipality |
