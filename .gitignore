@@ -37,8 +37,9 @@ outputs/.DS_Store
 # ── Notebooks ────────────────────────────────────────────
 notebooks/
 
-# ── Outputs folder ───────────────────────────────────────
-outputs/
+# ── Outputs folder (screenshots used in README are tracked) ──
+outputs/*
+!outputs/*.png
 
 # ── Setup scripts ────────────────────────────────────────
 src/setup_frontend_verbose.sh

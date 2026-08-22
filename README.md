@@ -2,32 +2,10 @@
 
 **German Road Accident Open Data Platform with a natural-language AI agent.** Integrates 2M+ accident records (2016–2024), regional statistics, and district boundaries into one system: a database, a REST API, a dashboard, and an AI agent that answers plain-English questions about the data — grounded in real numbers, never a guess.
 
-
 ![Python](https://img.shields.io/badge/Python-3.10+-blue)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.110+-green)
 ![React](https://img.shields.io/badge/React-18+-61DAFB)
 ![License](https://img.shields.io/badge/Data_License-dl--de/by--2--0-orange)
-
----
-
-## Features
-
-- **2,098,019 accident records** from 9 annual Unfallatlas releases
-- **11 REST API endpoints** covering filtering, aggregation, hotspot detection, trends, and GeoJSON visualization
-- **Interactive React dashboard** with choropleth maps, hotspot analysis, district rankings, and yearly trends
-- **Flexible filtering** by state, region, year, month, severity, and participant type
-- **Structured provenance** included in API responses
-- **Automatic OpenAPI/Swagger documentation**
-- **Fully reproducible ETL pipeline** for rebuilding the database from raw sources
-- **15 automated data quality checks** ensuring data integrity
-  
-## Screenshots
- 
-### Dashboard Overview
-![Dashboard Overview](screenshot_overview.png)
- 
-### Choropleth & District Rankings
-![Choropleth and Rankings](screenshot_dashboard.png)
 
 ---
 
@@ -82,9 +60,10 @@ The AI agent's model can be either **Groq** (a free cloud service, the default) 
 
 ### Screenshots
 
-| Dashboard Overview | Choropleth & District Rankings |
-|---|---|
-| ![Dashboard Overview](outputs/screenshot_overview.png) | ![Choropleth and Rankings](outputs/screenshot_dashboard.png) |
+![Dashboard Overview](outputs/screenshot_dashboard_1.png)
+![Dashboard with Atlas](outputs/screenshot_dashboard_2.png)
+![Choropleth & District Rankings](outputs/screenshot_dashboard_3.png)
+
 
 ---
 
