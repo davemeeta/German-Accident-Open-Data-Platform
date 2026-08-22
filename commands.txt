@@ -1,19 +1,46 @@
+=== Run everything from scratch ===
 
+--- Terminal 1: build the database ---
+cd src
 source myenv/bin/activate
 
-cd src
 python -m etl.run_import
+python -m etl.demo
+python -m etl.quality_checks      # optional: verify data integrity
 
-python -m etl.demo       
 
-Terminal 2
-source myenv/bin/activate
+--- Terminal 2: data API ---
 cd src
+source myenv/bin/activate
+
 uvicorn api.main:app --reload
 
 http://127.0.0.1:8000/docs
 
-Terminal 3
-source myenv/bin/activate
+
+--- Terminal 3: dashboard (needs Terminal 4 running too, for Atlas) ---
 cd src/frontend
+npm install                       # first time only
 npm run dev
+
+http://localhost:5173
+
+
+--- Terminal 4: agent API (Atlas won't work in the dashboard without this) ---
+source src/myenv/bin/activate
+pip install -r requirements-agent.txt   # first time only
+
+export GROQ_API_KEY=...           # free key: console.groq.com/keys
+uvicorn agent.api:app --port 8001
+
+
+=== Optional: use the agent without the dashboard ===
+source src/myenv/bin/activate
+export GROQ_API_KEY=...
+
+python -m agent.cli "How many accidents were there in Bavaria in 2022?"
+python -m agent.cli --backend ollama "..."    # local instead of cloud, needs `ollama serve` + a pulled model
+python -m agent.cli                           # interactive, multi-turn
+
+python -m evals.run_eval groq                 # full 35-question grounding eval suite
+python -m pytest tests/ -v                    # fast unit tests, no live backend needed
